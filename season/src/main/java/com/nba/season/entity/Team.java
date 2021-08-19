@@ -4,11 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-
+@Data
 @Entity
 public class Team {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(length = 20)
     private String name;
@@ -18,5 +17,6 @@ public class Team {
     private String state;
     @Column(length = 20)
     private String stadium;
+
 
 }
