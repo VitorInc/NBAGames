@@ -6,7 +6,6 @@ import com.nba.season.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,10 +25,9 @@ public class TeamService {
         }else{
             throw new Exception("Time já existe");
         }
-
     }
 
-    private Team toEntity(TeamDTO team) {
+    public Team toEntity(TeamDTO team) {
         Team entity = new Team();
         entity.setId(team.getId());
         entity.setStadium(team.getStadium());
@@ -41,7 +39,7 @@ public class TeamService {
 
 
 
-    private TeamDTO toDto(Team entity) {
+    public TeamDTO toDto(Team entity) {
         TeamDTO dto = new TeamDTO();
         dto.setId(entity.getId());
         dto.setStadium(entity.getStadium());
@@ -51,17 +49,17 @@ public class TeamService {
         return dto;
     }
 
-
-    
     public List<TeamDTO> listTeams(){
        return teamRepository.findAll().stream().map(entity -> toDto(entity)).collect(Collectors.toList());
-
     }
 
     public TeamDTO listPerId(Integer id){
         return toDto(teamRepository.findById(id).get());
     }
 
+    public List<Team> findAll(){
+       return teamRepository.findAll();
+    }
 
 
 }

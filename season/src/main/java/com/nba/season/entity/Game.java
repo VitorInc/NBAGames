@@ -4,6 +4,7 @@ package com.nba.season.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -14,6 +15,9 @@ public class Game {
   private Integer vBasquet;
   private Integer hBasquet;
   private Integer crowdPublic;
+  private LocalDateTime gameDate;
+  private Integer round;
+  private Boolean endded;
 
   @ManyToOne
   @JoinColumn(name="visitors")
