@@ -1,6 +1,7 @@
 package com.nba.season.service;
 
 import com.nba.season.DTO.ClassificationDTO;
+import com.nba.season.DTO.ClassificationTeamDTO;
 import com.nba.season.DTO.GameDTO;
 import com.nba.season.DTO.GameEnddedDTO;
 import com.nba.season.entity.Game;
@@ -10,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -166,15 +165,29 @@ public class GameService {
                     MadePoints.set(MadePoints.get() + game.getVBasquet());
                     SofferedPoints.set(SofferedPoints.get() + game.getHBasquet());
 
+                    });
+                    ClassificationTeamDTO classificationTeamDTO = new ClassificationTeamDTO();
+                    classificationTeamDTO.setIdTeam(team.getId());
+                    classificationTeamDTO.setTeam(team.getName());
+                classificationTeamDTO.setLosses(losses.get());
+                classificationTeamDTO.setDraw(draws.get());
+                classificationTeamDTO.setVictory(victory.get() * 3);
+                classificationTeamDTO.setPoints((victory.get() * 3) + draws.get());
+                classificationTeamDTO.setPointsScored(classificationTeamDTO.getPointsScored());
+                classificationTeamDTO.setPointsSoffered(classificationTeamDTO.getPointsSoffered());
+                classificationTeamDTO.setGames(losses.get() + draws.get() + victory.get());
+                classificationDTO.getTeams().add(classificationTeamDTO);
             });
 
-            });
-        return classificationDTO;
-
-    }
-
-    public GameDTO obtainGames(Integer id){
-       return entityToDTO(gameRepository.findById(id).get());
+       Collections.sort(classificationDTO.getTeams(), Collections.reverseOrder());
+            int position = 0;
+            for(ClassificationTeamDTO team : classificationDTO.getTeams()) {
+            team.setPosition(position++);
+        }
+                return classificationDTO;
+        }
+            public GameDTO obtainGames(Integer id){
+                return entityToDTO(gameRepository.findById(id).get());
     }
 
 

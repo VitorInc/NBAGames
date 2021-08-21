@@ -11,4 +11,5 @@ import java.util.List;
 public interface GameRepository extends JpaRepository<Game, Integer> {
     List<Game> findByHomeEndded(Team home, Boolean endded);
     List<Game> findByVisitantEndded(Team visitant, Boolean endded);
+    List<Game> findByEndded(Boolean endded);
 }

@@ -1,5 +1,6 @@
 package com.nba.season.controller;
 
+import com.nba.season.DTO.ClassificationDTO;
 import com.nba.season.DTO.GameDTO;
 import com.nba.season.DTO.GameEnddedDTO;
 import com.nba.season.entity.Game;
@@ -35,16 +36,16 @@ public class GameController {
             return ResponseEntity.ok().body(gameService.endded(id, gameDTO));
     }
 
-    /*
+
     @GetMapping(value = "/classificacao/{id}")
         public ResponseEntity<ClassificationDTO> classificaco() {
-            return ResponseEntity.ok().body(gameService.obtainGames(id));
-    }*/
-
-    @GetMapping(value = "/jogo/{id}")
-        public ResponseEntity<GameDTO> obtainGame(@PathVariable Integer id){
-            return ResponseEntity.ok().body(gameService.obtainGames(id));
+        return ResponseEntity.ok().body(gameService.obtainClassification());
 
     }
+        @GetMapping
+        public ResponseEntity<GameDTO> obtainGames (@PathVariable Integer id){
+            return ResponseEntity.ok().body(gameService.obtainGames(id));
 
+
+    }
 }
